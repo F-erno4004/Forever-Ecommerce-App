@@ -1,12 +1,16 @@
-import {v2 as cloudinary} from "cloudinary"
+import { v2 as cloudinary } from "cloudinary";
+import "dotenv/config";
 
-const connectCloudinary = async () => {
+const connectCloudinary = () => {
+    if (!process.env.CLOUDINARY_URL) {
+        throw new Error("CLOUDINARY_URL is missing from .env");
+    }
 
     cloudinary.config({
-        cloud_name: process.env.CLOUDINARY_NAME,
-        api_key: process.env.CLOUDINARY_API_KEY,
-        api_secret: process.env.CLOUDINARY_SECRET_KEY
-    })
-}
+        secure: true
+    });
+
+    console.log("Cloudinary configured");
+};
 
 export default connectCloudinary;
